@@ -14,6 +14,7 @@ module.exports = {
             },
             {
                 test: /\.(js)$/,
+                exclude: /(node_modules)/,
                 use: "babel-loader"
             }
         ]
@@ -23,7 +24,14 @@ module.exports = {
         filename: "bundle.js"
     },
     plugins: [
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+      template: path.join(__dirname,"dist/index.html"),
+      filename: "index.html",
+      inject: "body",
+    }),
     ],
+    devServer: {
+        port: 3000
+    },
     mode: process.env.NODE_ENV === "production" ? "production" : "development"
 }
